@@ -4,12 +4,13 @@
     $pass = $_POST['pass'];
     $mysqli = new mysqli("localhost", "root", "", "learnphp");
     $result = $mysqli->query("SELECT * FROM `users` WHERE email = '$email' AND pass='$pass'");
-    if($result->num_rows != 0){
+    if($result->num_rows){
         $row = $result->fetch_assoc();
         $_SESSION['id'] = $row['id'];
         $_SESSION['name'] = $row['name'];
         $_SESSION['lastname'] = $row['lastname'];
         $_SESSION['email'] = $row['email'];
+        header("Location: /profile.php");
     }else{
-        exit("Неправильный логин или пароль");
+        header("Location: /login.php?m=error");
     }

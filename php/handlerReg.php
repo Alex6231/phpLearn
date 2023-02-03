@@ -5,7 +5,7 @@
     $pass = $_POST['pass'];
     $mysqli = new mysqli("localhost", "root", "", "learnphp");
     $result = $mysqli->query("SELECT * FROM `users` WHERE email = '$email'");
-    if($result->num_rows != 0){
+    if($result->num_rows){
         exit("Такой пользователь уже существует");
     }else{
         $mysqli->query("INSERT INTO `users`(`name`, `lastname`, `email`, `pass`) VALUES ('$name','$lastname','$email','$pass')");
