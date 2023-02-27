@@ -44,4 +44,29 @@ class UserController{
         // Показываем на экране данные в формате JSON
         exit($jsonUserData);
     }
+
+    // Метод получения всех пользователей из таблицы users в формате JSOB
+    public static function getUsers(){
+        global $mysqli;
+        $result = $mysqli->query("SELECT * FROM users");
+        $users = [];
+        while (($row = $result->fetch_assoc())!=null){
+            $users[] = $row; // Добавляем каждого пользователя в массив $users
+        }
+        return json_encode($users); // Кодируем массив в формат JSON
+    }
+
+    public static function logout(){
+        session_destroy();
+        header("Location: /");
+    }
+    public static function uploadAvatar(){
+        $uploaddir = '/img/'; // <- это всего лишь строка
+        $uploadfile = $uploaddir.$_FILES['userfile']['name'];
+        move_uploaded_file($_FILES['userfile']["tmp_name"], $uploadfile);
+        global $mysqli;
+        $userId = $_SESSION['id'];
+        $mysqli->query("UPDATE `users` SET `img`='$uploadfile' WHERE id='$userId'");
+        header('Location: /profile');
+    }
 }

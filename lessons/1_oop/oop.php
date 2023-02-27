@@ -23,7 +23,7 @@
             return $this->hp;
         }
         public function getName(){
-            return $this->name." ".$this->lastname;
+            return $this->name;
         }
         public function getLastname(){
             return $this->lastname;
@@ -44,40 +44,61 @@
             else $this->hp = $this->hp + $hp;
         }
         public function info(){
-            $result = "Имя: ".$this->getName()."<br>";
-            if($this->getMother()){
+            $result = "Имя: ".$this->name."<br>";
+            if($this->getMother() != null){
                 $result .= "Имя матери: ".$this->getMother()->getName()."<br>";
-                if($this->getMother()->getFather()){
-                    $result .= "Имя дедушки по маминой линии: ".$this->getMother()->getFather()->getName()."<br>";
-                }
-                if($this->getMother()->getMother()) {
-                    $result .= "Имя бабушки по маминой линии: ".$this->getMother()->getMother()->getName()."<br>";
+                if($this->getMother()->getFather != null){
+                    $result .= "Имя дедушки по маминой линии: ".$this->getMother()->getFather()->getName();
                 }
             }
-            if($this->getFather()){
+            if($this->getFather() != null){
                 $result .= "Имя отца: ".$this->getFather()->getName()."<br>";
-                if($this->getFather()->getFather()){
-                    $result .= "Имя дедушки по папиной линии: ".$this->getFather()->getFather()->getName()."<br>";
-                }
-                if($this->getFather()->getMother()) {
-                    $result .= "Имя бабушки по папиной линии: ".$this->getFather()->getMother()->getName()."<br>";
-                }
             }
 
             return $result;
         }
+
+        public static function f(){
+            return "Hello world";
+        }
     }
-    $medKit = 50;
-    $person7 = new Person("Anastasia", "Ivanova", 79);
-    $person6 = new Person("Alexander", "Ivanov", 89);
-    $person5 = new Person("Viktoriya", "Petrova", 80);
-    $person4 = new Person("Igor", "Petrov", 75);
-    $person3 = new Person("Ivan", "Ivanov", 35, $person7, $person6);
-    $person2 = new Person("Olga", "Petrova", 40, $person5, $person4);
+    /*$medKit = 50;
+    $person4 = new Person("Igor", "Petrov", 70);
+    $person3 = new Person("Ivan", "Ivanov", 35);
+    $person2 = new Person("Olga", "Ivanov", 40, null, $person4);
     $person1 = new Person("Alex", "Ivanov", 10, $person2, $person3);
-    echo $person2->info();
+
+    echo Person::f();*/
     /*echo $person1->getHp()."<br>"; // 100
     $person1->setHp(-30);
     echo $person1->getHp()."<br>"; // 70
     $person1->setHp($medKit);
     echo $person1->getHp()."<br>"; // 100*/
+
+
+   function launch($count,$callback){
+        for ($i=0; $i<$count; $i++){
+            $callback();
+        }
+    }
+
+
+
+    $helloWorld = function (){
+        echo "Hello world<br>";
+    };
+
+    launch(3, $helloWorld);
+
+
+
+
+
+
+
+
+
+
+
+
+
